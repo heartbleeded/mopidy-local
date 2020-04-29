@@ -139,7 +139,7 @@ SELECT docid                            AS docid,
 
 -- Full-text search; column names match Mopidy query fields
 
-CREATE VIRTUAL TABLE fts USING fts3 (
+CREATE VIRTUAL TABLE fts USING fts4(
     uri,
     track_name,
     album,
@@ -150,8 +150,8 @@ CREATE VIRTUAL TABLE fts USING fts3 (
     genre,
     track_no,
     date,
-    comment
-);
+    comment,
+    tokenize=unicode61 "remove_diacritics=2");
 
 CREATE TRIGGER track_after_insert AFTER INSERT ON track
 BEGIN
